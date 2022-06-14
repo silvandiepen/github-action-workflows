@@ -1,0 +1,38 @@
+name: Conditional Environment Instance Variable
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      instance: ${{ steps.set-variable.outputs.instance }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Instance variable
+        id: set-variable
+        run: |
+          if [ ${{ github.ref }} == 'refs/heads/main' ]; then
+            echo "::set-output name=instance::prod"
+          elif [ ${{ github.ref }} == 'refs/heads/staging' ]; then
+            echo "::set-output name=instance::stage"
+          elif [ ${{ github.ref }} == 'refs/heads/dev' ]; then
+            echo "::set-output name=instance::test"
+          else
+            echo "::set-output name=instance::${{ github.ref }}"
+          fi
+        shell: bash
+      - name: Read exported variable
+        run: |
+          echo "ENV: ${{ env.instance }}"
+          echo "OUTPUT: ${{ steps.check.test-env.instance }}"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [setup]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Read exported variable
+        run: |
+          echo "OUTPUT: ${{needs.setup.outputs.instance}}"
