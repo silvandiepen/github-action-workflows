@@ -25,8 +25,7 @@ jobs:
         shell: bash
       - name: Read exported variable
         run: |
-          echo "ENV: ${{ env.instance }}"
-          echo "OUTPUT: ${{ steps.check.test-env.instance }}"
+          echo "OUTPUT: ${{ steps.setup.output.instance }}"
 
   build:
     runs-on: ubuntu-latest
