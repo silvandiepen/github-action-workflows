@@ -3,6 +3,11 @@ on:
   workflow_dispatch:
   push:
 
+env:
+  PROD_BRANCH: main
+  STAGE_BRANCH: staging
+  TEST_BRANCH: develop
+
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -13,11 +18,11 @@ jobs:
       - name: Set Instance variable
         id: set-variable
         run: |
-          if [ ${{ github.ref }} == 'refs/heads/main' ]; then
+          if [ ${{ github.ref }} == 'refs/heads/${{ env.PROD_BRANCH }}' ]; then
             echo "::set-output name=instance::prod"
-          elif [ ${{ github.ref }} == 'refs/heads/staging' ]; then
+          elif [ ${{ github.ref }} == 'refs/heads/${{ env.STAGE_BRANCH }}' ]; then
             echo "::set-output name=instance::stage"
-          elif [ ${{ github.ref }} == 'refs/heads/dev' ]; then
+          elif [ ${{ github.ref }} == 'refs/heads/${{ env.TEST_BRANCH }}' ]; then
             echo "::set-output name=instance::test"
           else
             echo "::set-output name=instance::${{ github.ref }}"
@@ -26,6 +31,10 @@ jobs:
       - name: Read exported variable
         run: |
           echo "OUTPUT: ${{ steps.setup.output.instance }}"
+          if ${{ steps.setup.output.instance }} != prod; then
+            echo "Game over!"
+            exit 1
+          fi
 
   build:
     runs-on: ubuntu-latest
