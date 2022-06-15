@@ -30,12 +30,8 @@ jobs:
         shell: bash
       - name: Read exported variable
         run: |
-          echo "OUTPUT: ${{ steps.setup.output.instance }}"
-          if ${{ steps.setup.output.instance }} != prod; then
-            echo "Game over!"
-            exit 1
-          fi
-
+          echo "OUTPUT: ${{ steps.set-variable.outputs.instance }}"
+       
   build:
     runs-on: ubuntu-latest
     needs: [setup]
