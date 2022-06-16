@@ -1,13 +1,5 @@
 name: Conditional Environment Instance Variable
 
-on:
-  workflow_dispatch:
-  push:
-    branches: 
-      - ${{ env.PROD_BRANCH }}
-      - ${{ env.STAGE_BRANCH }}
-      - ${{ env.TEST_BRANCH }}
-    
 env:
   PROD_BRANCH: main
   STAGE_BRANCH: staging
@@ -16,6 +8,13 @@ env:
   STAGE_INSTANCE: stage
   TEST_INSTANCE: dev
 
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - ${{ env.PROD_BRANCH }}
+      - ${{ env.STAGE_BRANCH }}
+      - ${{ env.TEST_BRANCH }}
     
 jobs:
   setup:
@@ -28,11 +27,11 @@ jobs:
         id: set-variable
         run: |
           if [ ${{ github.ref }} == 'refs/heads/${{ env.PROD_BRANCH }}' ]; then
-            echo "::set-output name=instance::prod"
+            echo "::set-output name=instance::${{ env.PROD_INSTANCE }}"
           elif [ ${{ github.ref }} == 'refs/heads/${{ env.STAGE_BRANCH }}' ]; then
-            echo "::set-output name=instance::stage"
+            echo "::set-output name=instance::${{ env.STAGE_INSTANCE }}"
           elif [ ${{ github.ref }} == 'refs/heads/${{ env.TEST_BRANCH }}' ]; then
-            echo "::set-output name=instance::test"
+            echo "::set-output name=instance::${{ env.TEST_INSTANCE }}"
           else
             echo "::set-output name=instance::${{ github.ref }}"
           fi
