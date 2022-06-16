@@ -6,8 +6,12 @@ on:
   push:
     branches: 
       - main
+      - staging 
+      - dev
 
 env:
+  PROJECT_NAME: my-project
+  REGION: europe-west1
   PROD_BRANCH: main
   STAGE_BRANCH: staging
   TEST_BRANCH: develop
@@ -46,4 +50,4 @@ jobs:
       - uses: actions/checkout@v2
       - name: Read exported variable
         run: |
-          echo "OUTPUT: ${{needs.setup.outputs.instance}}"
+          echo "DEPLOY TO: ${{ env.PROJECT_NAME}}-${{needs.setup.outputs.instance}}-${{ env.REGION }}.domain.com"
