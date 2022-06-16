@@ -1,13 +1,20 @@
 name: Conditional Environment Instance Variable
-on:
-  workflow_dispatch:
-  push:
 
 env:
   PROD_BRANCH: main
   STAGE_BRANCH: staging
   TEST_BRANCH: develop
+  PROD_INSTANCE: prod
+  STAGE_INSTANCE: stage
+  TEST_INSTANCE: dev
 
+on:
+  workflow_dispatch:
+  push:
+    - ${{ env.PROD_BRANCH }}
+    - ${{ env.STAGE_BRANCH }}
+    - ${{ env.TEST_BRANCH }}
+    
 jobs:
   setup:
     runs-on: ubuntu-latest
