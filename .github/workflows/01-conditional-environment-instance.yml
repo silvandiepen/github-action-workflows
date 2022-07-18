@@ -47,7 +47,7 @@ jobs:
       - name: Set Uppercase Instance
         id: instance
         run: |
-          echo "::set-output name=instance::${{ steps.string.outputs.uppercase }}"
+          echo "::set-output name=instance::${{ steps.string.outputs.lowercase }}"
           echo "::set-output name=instance_uppercase::${{ steps.string.outputs.uppercase }}"
         shell: bash
       - name: Read exported variable
