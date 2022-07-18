@@ -39,18 +39,18 @@ jobs:
             echo "::set-output name=instance::${{ github.ref }}"
           fi
         shell: bash
-      - id: instance
+      - id: string
         uses: ASzc/change-string-case-action@v2
         with:
           string: "${{ steps.set-variable.outputs.instance }}"
-      - id: set-instance
+      - id: instance
         run: |
-          echo "::set-output name=instance_uppercase::${{ steps.instance.outputs.uppercase }}"
+          echo "::set-output name=instance_uppercase::${{ steps.string.outputs.uppercase }}"
       - name: Read exported variable
         run: |
           echo "output: ${{ steps.set-variable.outputs.instance }}"
-          echo "OUTPUT: ${{ steps.instance.outputs.uppercase }}"
-          echo "OUTPUT: ${{ steps.instance_uppercase.outputs }}"
+          echo "OUTPUT: ${{ steps.string.outputs.uppercase }}"
+          echo "OUTPUT: ${{ steps.instance.outputs.instance }}"
           
        
   build:
