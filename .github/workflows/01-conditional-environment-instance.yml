@@ -46,16 +46,13 @@ jobs:
       - name: Set Uppercase Instance
         id: instance
         run: |
-          echo "::set-output name=lowercase::${{ steps.string.outputs.lowercase }}"
-          echo "::set-output name=uppercase::${{ steps.string.outputs.uppercase }}"
+          echo "::set-output name=name::${{ steps.string.outputs.lowercase }}"
+          echo "::set-output name=NAME::${{ steps.string.outputs.uppercase }}"
         shell: bash
       - name: Read exported variable
         run: |
-          echo "output: ${{ steps.set-variable.outputs.instance }}"
-          echo "OUTPUT: ${{ steps.string.outputs.uppercase }}"
-          echo "-----------"
-          echo "OUTPUT: ${{ steps.instance.outputs.uppercase }}"
-          echo "OUTPUT: ${{ steps.instance.outputs.lowercase }}"
+          echo "OUTPUT: ${{ steps.instance.outputs.NAME }}"
+          echo "OUTPUT: ${{ steps.instance.outputs.name }}"
           
        
   build:
