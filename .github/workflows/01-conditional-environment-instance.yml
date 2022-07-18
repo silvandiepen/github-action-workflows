@@ -39,10 +39,14 @@ jobs:
             echo "::set-output name=instance::${{ github.ref }}"
           fi
         shell: bash
+      - id: string
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: XyZzY
       - name: Read exported variable
         run: |
           echo "output: ${{ steps.set-variable.outputs.instance }}"
-          echo "OUTPUT: ${{ steps.set-variable.outputs.instance | tr a-z A-Z }}"
+          echo "OUTPUT: ${{ echo 'console.log("abc".toUpperCase())' | node }}"
        
   build:
     runs-on: ubuntu-latest
