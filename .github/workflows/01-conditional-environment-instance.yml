@@ -38,6 +38,7 @@ jobs:
           else
             echo "::set-output name=instance::${{ github.ref }}"
           fi
+          echo "::set-output name=test::TSTTTTT"
         shell: bash
       - id: string
         uses: ASzc/change-string-case-action@v2
@@ -65,4 +66,5 @@ jobs:
           echo "instance_name: ${{ needs.setup.outputs.instance_name }}"
           echo "instance: ${{ needs.setup.outputs.instance }}"
           echo "instance_uppercase: ${{ needs.setup.outputs.instance_uppercase }}"
+          echo "test: ${{ needs.setup.outputs.test }}"
           
