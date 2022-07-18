@@ -56,3 +56,5 @@ jobs:
       - name: Read exported variable
         run: |
           echo "DEPLOY TO: ${{ env.PROJECT_NAME}}-${{needs.setup.outputs.instance}}-${{ env.REGION }}.domain.com"
+          echo "INSTANCE: ${{ steps.instance.outputs.uppercase }}"
+          
