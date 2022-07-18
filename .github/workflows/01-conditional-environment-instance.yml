@@ -30,19 +30,19 @@ jobs:
         id: set-variable
         run: |
           if [ ${{ github.ref }} == 'refs/heads/${{ env.PROD_BRANCH }}' ]; then
-            echo "::set-output name=instance::${{ env.PROD_INSTANCE }}"
+            echo "::set-output name=instance_name::${{ env.PROD_INSTANCE }}"
           elif [ ${{ github.ref }} == 'refs/heads/${{ env.STAGE_BRANCH }}' ]; then
-            echo "::set-output name=instance::${{ env.STAGE_INSTANCE }}"
+            echo "::set-output name=instance_name::${{ env.STAGE_INSTANCE }}"
           elif [ ${{ github.ref }} == 'refs/heads/${{ env.TEST_BRANCH }}' ]; then
-            echo "::set-output name=instance::${{ env.TEST_INSTANCE }}"
+            echo "::set-output name=instance_name::${{ env.TEST_INSTANCE }}"
           else
-            echo "::set-output name=instance::${{ github.ref }}"
+            echo "::set-output name=instance_name::${{ github.ref }}"
           fi
         shell: bash
       - id: string
         uses: ASzc/change-string-case-action@v2
         with:
-          string: "${{ steps.set-variable.outputs.instance }}"
+          string: "${{ steps.set-variable.outputs.instance_name }}"
       - name: Set Uppercase Instance
         id: instance
         run: |
