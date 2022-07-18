@@ -42,11 +42,11 @@ jobs:
       - id: string
         uses: ASzc/change-string-case-action@v2
         with:
-          string: "output: ${{ steps.set-variable.outputs.instance }}"
+          string: "${{ steps.set-variable.outputs.instance }}"
       - name: Read exported variable
         run: |
           echo "output: ${{ steps.set-variable.outputs.instance }}"
-          echo "OUTPUT: ${{ steps.string.outputs.lowercase }}"
+          echo "OUTPUT: ${{ steps.string.outputs.uppercase }}"
        
   build:
     runs-on: ubuntu-latest
