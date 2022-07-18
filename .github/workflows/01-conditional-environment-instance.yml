@@ -20,7 +20,7 @@ env:
   TEST_INSTANCE: dev
     
 jobs:
-  setup:
+  instance:
     runs-on: ubuntu-latest
     outputs:
       instance: ${{ steps.set-variable.outputs.instance }}
@@ -66,7 +66,7 @@ jobs:
       - name: Read exported variable
         run: |
           echo "DEPLOY TO: ${{ env.PROJECT_NAME}}-${{needs.setup.outputs.instance}}-${{ env.REGION }}.domain.com"
-          echo "iNSTANCE: ${{ needs.setup.outputs.instance }}"
-          echo "INSTANCE: ${{ needs.setup.outputs.instance_uppercase }}"
-          echo "Instance: ${{ needs setup.outputs.lowercase }}
+          echo "iNSTANCE: ${{ needs.instance.outputs.instance }}"
+          echo "INSTANCE: ${{ needs.instance.outputs.instance_uppercase }}"
+          echo "Instance: ${{ needs.instance.outputs.lowercase }}
           
