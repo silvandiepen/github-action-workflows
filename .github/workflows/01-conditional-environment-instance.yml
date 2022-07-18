@@ -43,11 +43,13 @@ jobs:
         uses: ASzc/change-string-case-action@v2
         with:
           string: "${{ steps.set-variable.outputs.instance }}"
+        run: |
+          echo "::set-output name=instance_uppercase::${{ steps.instance.outputs.uppercase }}"
       - name: Read exported variable
         run: |
           echo "output: ${{ steps.set-variable.outputs.instance }}"
           echo "OUTPUT: ${{ steps.instance.outputs.uppercase }}"
-          echo "::set-output name=instance_uppercase::${{ steps.instance.outputs.uppercase }}"
+          echo "OUTPUT: ${{ steps.instance_uppercase.outputs }}"
           
        
   build:
@@ -58,5 +60,6 @@ jobs:
       - name: Read exported variable
         run: |
           echo "DEPLOY TO: ${{ env.PROJECT_NAME}}-${{needs.setup.outputs.instance}}-${{ env.REGION }}.domain.com"
+          echo "iNSTANCE: ${{ needs.setup.outputs.instance }}"
           echo "INSTANCE: ${{ needs.setup.outputs.instance_uppercase }}"
           
