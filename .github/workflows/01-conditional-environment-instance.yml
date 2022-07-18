@@ -23,7 +23,8 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      instance: ${{ steps.set-variable.outputs.instance }}
+      instance: ${{ steps.instance.outputs.instance }}
+      instance_uppercase: ${{ steps.instance.outputs.instance_uppercase }}
     steps:
       - uses: actions/checkout@v2
       - name: Set Instance variable
@@ -38,7 +39,6 @@ jobs:
           else
             echo "::set-output name=instance::${{ github.ref }}"
           fi
-          echo "::set-output name=test::TSTTTTT"
         shell: bash
       - id: string
         uses: ASzc/change-string-case-action@v2
@@ -47,6 +47,7 @@ jobs:
       - name: Set Uppercase Instance
         id: instance
         run: |
+          echo "::set-output name=instance::${{ steps.string.outputs.uppercase }}"
           echo "::set-output name=instance_uppercase::${{ steps.string.outputs.uppercase }}"
         shell: bash
       - name: Read exported variable
