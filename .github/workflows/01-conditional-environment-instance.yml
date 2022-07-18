@@ -47,7 +47,7 @@ jobs:
         run: |
           echo "output: ${{ steps.set-variable.outputs.instance }}"
           echo "output: ${{ steps.instance.outputs.uppercase }}"
-          echo "::set-output name=INSTANCE::${{ steps.instance.outputs.uppercase }}"
+          echo "::set-output name=instance_uppercase::${{ steps.instance.outputs.uppercase }}"
           
        
   build:
@@ -58,5 +58,5 @@ jobs:
       - name: Read exported variable
         run: |
           echo "DEPLOY TO: ${{ env.PROJECT_NAME}}-${{needs.setup.outputs.instance}}-${{ env.REGION }}.domain.com"
-          echo "INSTANCE: ${{ needs.setup.outputs.INSTANCE }}"
+          echo "INSTANCE: ${{ needs.setup.outputs.instance_uppercase }}"
           
