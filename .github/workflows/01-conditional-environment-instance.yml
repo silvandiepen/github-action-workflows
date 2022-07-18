@@ -41,7 +41,8 @@ jobs:
         shell: bash
       - name: Read exported variable
         run: |
-          echo "OUTPUT: ${{ steps.set-variable.outputs.instance }}"
+          echo "output: ${{ steps.set-variable.outputs.instance }}"
+          echo "OUTPUT: ${{ steps.set-variable.outputs.instance | tr a-z A-Z }}"
        
   build:
     runs-on: ubuntu-latest
