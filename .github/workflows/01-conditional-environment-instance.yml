@@ -42,7 +42,7 @@ jobs:
       - id: string
         uses: ASzc/change-string-case-action@v2
         with:
-          string: XyZzY
+          string: "output: ${{ steps.set-variable.outputs.instance }}"
       - name: Read exported variable
         run: |
           echo "output: ${{ steps.set-variable.outputs.instance }}"
