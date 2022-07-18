@@ -43,9 +43,11 @@ jobs:
         uses: ASzc/change-string-case-action@v2
         with:
           string: "${{ steps.set-variable.outputs.instance }}"
-      - id: instance
+      - name: Set Uppercase Instance
+        id: instance
         run: |
           echo "::set-output name=instance_uppercase::${{ steps.string.outputs.uppercase }}"
+        shell: bash
       - name: Read exported variable
         run: |
           echo "output: ${{ steps.set-variable.outputs.instance }}"
